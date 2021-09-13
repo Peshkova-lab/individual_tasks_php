@@ -13,10 +13,10 @@
         <tr><th>Number</th>
             <th>Name</th>
             <th>Author</th></tr>
-        <?php foreach ($pictures as $picture) : ?>
-        <tr><td><?php echo $picture['number']; ?></td>
-            <td><?php echo $picture['name']; ?></td>
-            <td><?php echo $picture['author'] ?> </td></tr>
-   <?php endforeach; ?>
+        @foreach($pictures as $picture)
+        <tr><td>{{$picture['number'] }}</td>
+            <td>{{$picture['name'] }}</td>
+            <td>{{$picture['author'] }} </td></tr>
+        @endforeach
     </table>
 @endsection
