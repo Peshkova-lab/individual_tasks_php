@@ -9,6 +9,11 @@
 @endsection
 
 @section("page-content")
+    <?php
+        echo "<pre>";
+        var_dump($pictures);
+        echo "</pre>";
+        ?>
     <table>
         <tr><th>Number</th>
             <th>Name</th>
