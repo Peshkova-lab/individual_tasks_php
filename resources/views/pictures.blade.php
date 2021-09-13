@@ -9,16 +9,14 @@
 @endsection
 
 @section("page-content")
-    <?php
-        echo "<pre>";
-        var_dump($pictures);
-        echo "</pre>";
-        ?>
     <table>
         <tr><th>Number</th>
             <th>Name</th>
             <th>Author</th></tr>
-        <tr><td>1</td><td>Starlight Night</td><td>Vincent van Gogh</td></tr>
-        <tr><td>2</td><td>The Lake at Vilabertran</td><td>Salvador Dali</td></tr>
+        <?php foreach ($pictures as $picture) : ?>
+        <tr><td><?php echo $picture['number']; ?></td>
+            <td><?php echo $picture['name']; ?></td>
+            <td><?php echo $picture['author'] ?> </td></tr>
+   <?php endforeach; ?>
     </table>
 @endsection
