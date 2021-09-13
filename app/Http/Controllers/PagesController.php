@@ -21,7 +21,8 @@ class PagesController extends Controller
             ['number'=> '3', 'name' => 'The Persistence of Memory', 'author' => 'Salvador Dali'],
         ];
         return view ("pictures", [
-            'pictures' => $pictures
+            'pictures' => $pictures,
+            'pageTitle' => 'Famous pictures and their authors'
         ]);
     }
 }

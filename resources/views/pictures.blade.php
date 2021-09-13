@@ -5,7 +5,7 @@
 @endsection
 
 @section("page-title")
-    Home page
+{{ $pageTitle }}
 @endsection
 
 @section("page-content")
