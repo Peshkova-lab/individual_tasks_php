@@ -14,9 +14,9 @@
             <th>Name</th>
             <th>Author</th></tr>
         @foreach($pictures as $picture)
-        <tr><td>{{$picture['number'] }}</td>
-            <td>{{$picture['name'] }}</td>
-            <td>{{$picture['author'] }} </td></tr>
+        <tr><td>{{$picture->getNumber() }}</td>
+            <td>{{$picture->getName() }}</td>
+            <td>{{$picture->getAuthor() }} </td></tr>
         @endforeach
     </table>
 @endsection
