@@ -17,4 +17,6 @@ Route::get('/', "App\Http\Controllers\PagesController@home");
 
 Route::get('/about', "App\Http\Controllers\PagesController@about");
 
-Route::get('/pictures', "App\Http\Controllers\PagesController@pictures");
+Route::get('/pictures', "App\Http\Controllers\PictureController@index");
+
+Route::get('/pictures-json', "App\Http\Controllers\PictureController@getList");
