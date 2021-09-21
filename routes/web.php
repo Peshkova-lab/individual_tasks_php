@@ -20,3 +20,11 @@ Route::get('/about', "App\Http\Controllers\PagesController@about");
 Route::get('/pictures', "App\Http\Controllers\PictureController@index");
 
 Route::get('/pictures-json', "App\Http\Controllers\PictureController@getList");
+
+Route::get('/pictures/create', "App\Http\Controllers\PictureController@create");
+
+Route::post('/pictures', "App\Http\Controllers\PictureController@store");
+
+Route::get('/pictures/{id}/edit', "App\Http\Controllers\PictureController@edit");
+Route::patch('/pictures/{id}', "App\Http\Controllers\PictureController@update");
+
