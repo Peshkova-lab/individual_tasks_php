@@ -4,7 +4,7 @@
 @section("page-title", "Edit picture")
 
 @section("page-content")
-    <form method="patch" action="/pictures/{{ $picture->id }}" class="text-left">
+    <form method="post" action="/pictures/{{ $picture->id }}" class="text-left">
         @csrf
 
         {{ method_field("patch") }}
