@@ -12,15 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', "App\Http\Controllers\PagesController@home");
 
 Route::get('/about', "App\Http\Controllers\PagesController@about");
 
+Route::resource('pictures', "App\Http\Controllers\PictureController");
+/*
 Route::get('/pictures', "App\Http\Controllers\PictureController@index");
-
 Route::get('/pictures-json', "App\Http\Controllers\PictureController@getList");
-
 Route::get('/pictures/create', "App\Http\Controllers\PictureController@create");
 
 Route::post('/pictures', "App\Http\Controllers\PictureController@store");
@@ -28,3 +27,6 @@ Route::post('/pictures', "App\Http\Controllers\PictureController@store");
 Route::get('/pictures/{id}/edit', "App\Http\Controllers\PictureController@edit");
 Route::patch('/pictures/{id}', "App\Http\Controllers\PictureController@update");
 
+Route::delete('/pictures/{id}', "App\Http\Controllers\PictureController@destroy");
+Route::get('/pictures/{id}', "App\Http\Controllers\PictureController@show");
+*/

@@ -26,34 +26,44 @@ class PictureController extends Controller
         }
 
         public function store(){
-        $picture = new \App\Models\Picture();
-
-        $picture->number = \request('pict-numb');
-
-        $picture->name = \request('pict-name');
-
-        $picture->author = \request('pict-author');
-
-        $picture->save();
+        \App\Models\Picture::create([
+            'number' => \request('pict-numb'),
+            'name' => \request('pict-name'),
+            'author' => \request('pict-author'),
+        ]);
+;
         return redirect('/pictures');
         }
 
-        public function edit($id) {
-        $picture = \App\Models\Picture::find($id);
+        public function edit(\App\Models\Picture $picture) {
+
         return view('pictures/edit', [
             'picture' => $picture,
         ]);
         }
 
-        public function update($id) {
-        $picture = \App\Models\Picture::find($id);
+        public function update(\App\Models\Picture $picture) {
 
-        $picture->number = \request('pict-numb');
-        $picture->name = \request('pict-name');
-        $picture->author = \request('pict-author');
+        $picture->update(
+            \request(['number', 'name', 'author'])
+        );
 
         $picture->save();
-
         return redirect('/pictures');
+        }
+
+        public function destroy(\App\Models\Picture $picture) {
+        $picture->delete();
+        }
+
+        public function show(\App\Models\Picture $picture) {
+
+        if (is_null($picture)) {
+            return "Picture does not exist!";
+        }
+
+        return view('pictures/show', [
+            'picture' => $picture
+        ]);
         }
 }

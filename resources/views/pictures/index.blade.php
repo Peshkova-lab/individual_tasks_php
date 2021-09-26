@@ -23,7 +23,9 @@
                 <td>{{$picture->name }}</td>
                 <td>{{$picture->author }} </td>
 
-                <td><a href="/pictures/{{ $picture->id }}/edit" class="btn btn-outline-primary">Edit</a> </td>
+                <td><a href="/pictures/{{ $picture->id }}" class="btn btn-outline-secondary">View</a>
+                    <a href="/pictures/{{ $picture->id }}/edit" class="btn btn-outline-primary">Edit</a>
+                </td>
             </tr>
         @endforeach
     </table>
