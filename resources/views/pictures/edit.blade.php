@@ -10,15 +10,36 @@
         {{ method_field("patch") }}
         <div class="form-group">
             <label for="pict-numb">Number</label>
-            <input type="text" class="form-control" name="number" id="pict-numb" placeholder="Input number of picture" value="{{ $picture->number }}">
+            <input type="text" class="form-control" name="number" id="pict-numb" placeholder="Input number of picture" value="{{ old('number') ? old('number') : $picture->number }}">
+            <small class="form-text text-danger">
+                <ul>
+                    @foreach($errors->get('number') as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </small>
         </div>
         <div class="form-group">
             <label for="pict-name">Name</label>
-            <input type="text" class="form-control" name="name" id="pict-name" placeholder="Input name of picture" value="{{ $picture->name }}">
+            <input type="text" class="form-control" name="name" id="pict-name" placeholder="Input name of picture" value="{{ old('name') ? old('name') : $picture->name }}">
+            <small class="form-text text-danger">
+                <ul>
+                    @foreach($errors->get('name') as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </small>
         </div>
         <div class="form-group">
             <label for="pict-author">Author</label>
-            <input type="text" class="form-control" name="author" id="pict-author" placeholder="Input author of picture" value="{{ $picture->author }}">
+            <input type="text" class="form-control" name="author" id="pict-author" placeholder="Input author of picture" value="{{ old('author') ? old('author') :$picture->author }}">
+            <small class="form-text text-danger">
+                <ul>
+                    @foreach($errors->get('author') as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </small>
         </div>
         <button type="submit" class="btn btn-primary float-right">Edit</button>
 

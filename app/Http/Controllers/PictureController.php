@@ -26,10 +26,26 @@ class PictureController extends Controller
         }
 
         public function store(){
+        $data = request()->validate([
+            'pict-numb'=>'required|min:1|max:20',
+            'pict-name' => 'required|min:3|max:200',
+            'pict-author' => 'required|min:5|max:100',
+        ], [
+            'pict-numb.required' => 'Input number of picture!',
+            'pict-numb.min' => 'Number can not be less then 1 symbols!',
+            'pict-numb.max' => 'Number can not be more then 20 symbols!',
+            'pict-name.required' => 'Input name of picture!',
+            'pict-name.min' => 'Name can not be less then 3 symbols!',
+            'pict-name.max' => 'Name can not be more then 200 symbols!',
+            'pict-author.required' => 'Input author of picture!',
+            'pict-author.min' => 'Author can not be less then 5!',
+            'pict-author.max' => 'Author can not be more then 100!',
+        ]);
+
         \App\Models\Picture::create([
-            'number' => \request('pict-numb'),
-            'name' => \request('pict-name'),
-            'author' => \request('pict-author'),
+            'number' => $data['pict-numb'],
+            'name' => $data['pict-name'],
+            'author' => $data['pict-author'],
         ]);
 ;
         return redirect('/pictures');
@@ -45,10 +61,23 @@ class PictureController extends Controller
         public function update(\App\Models\Picture $picture) {
 
         $picture->update(
-            \request(['number', 'name', 'author'])
+            \request()->validate([
+                'number'=>'required|min:1|max:20',
+                'name' => 'required|min:3|max:200',
+                'author' => 'required|min:5|max:100',
+            ], [
+                'number.required' => 'Input number of picture!',
+                'number.min' => 'Number can not be less then 1 symbols!',
+                'number.max' => 'Number can not be more then 20 symbols!',
+                'name.required' => 'Input name of picture!',
+                'name.min' => 'Name can not be less then 3 symbols!',
+                'name.max' => 'Name can not be more then 200 symbols!',
+                'author.required' => 'Input author of picture!',
+                'author.min' => 'Author can not be less then 5!',
+                'author.max' => 'Author can not be more then 100!',
+            ])
         );
 
-        $picture->save();
         return redirect('/pictures');
         }
 
