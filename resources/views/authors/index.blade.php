@@ -20,7 +20,9 @@
                 <td>{{ $author->nationality }}</td>
                 <td><a href="/authors/{{ $author->id }}"
                 class="btn btn-outline-secondary">View</a>
-                <a href="/authors/{{ $author->id }}/edit"
+                <a href="/author/{{ $author->id }}/pictures"
+                   class="btn btn-outline-info">Pictures</a>
+                    <a href="/authors/{{ $author->id }}/edit"
                 class="btn btn-outline-primary">Edit</a></td>
             </tr>
         @endforeach

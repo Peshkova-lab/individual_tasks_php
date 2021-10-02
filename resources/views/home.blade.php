@@ -9,6 +9,6 @@
 @section("page-content")
     <p class="lead"></p>
     <p class="lead">
-        <a href="/pictures" class="btn btn-lg btn-secondary">Pictures</a>
+        <a href="/author/0/pictures" class="btn btn-lg btn-secondary">Pictures</a>
     </p>
 @endsection

@@ -4,7 +4,7 @@
 @section("page-title", "Add picture")
 
 @section("page-content")
-    <form method="post" action="/pictures" class="text-left">
+    <form method="post" action="/author/{{ $author_filter_id }}/pictures" class="text-left">
         {{ csrf_field() }}
         <div class="form-group">
 
@@ -27,7 +27,10 @@
             id="pict-author">
         <option selected disabled value="0">Choose author</option>
         @foreach($authors as $author)
-            <option value="{{ $author->id }}">{{ $author->author }}</option>
+            <option value="{{ $author->id }}"
+            @if($author_filter_id == $author->id) selected @endif>
+                {{ $author->author }}
+            </option>
         @endforeach
     </select>
     @include('includes/validationErr', ['errFieldName' => "pict-author"])

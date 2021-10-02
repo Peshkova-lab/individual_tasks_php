@@ -86,7 +86,7 @@ class AuthorController extends Controller
     {
         return view('authors/edit', [
             'author' => $author,
-            'pictures'=> Picture::all()->sortBy('name')
+            'pictures'=> $author->pictures->sortBy('name')
         ]);
     }
 

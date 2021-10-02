@@ -9,38 +9,36 @@
 
         {{ method_field("patch") }}
         <div class="form-group">
-            <label for="pict-numb">Year</label>
-            <input type="text" class="form-control" name="number" id="pict-numb" placeholder="Input number of picture" value="{{ old('number') ? old('number') : $picture->number }}">
-            <small class="form-text text-danger">
-                <ul>
-                    @foreach($errors->get('number') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </small>
+
+            @include("includes/input", [
+    'fieldId' => 'pict-numb', 'labelText' => 'Year',
+    'placeHolderText' => 'Input year', 'fieldValue' => $picture->number
+])
         </div>
+
         <div class="form-group">
-            <label for="pict-name">Name</label>
-            <input type="text" class="form-control" name="name" id="pict-name" placeholder="Input name of picture" value="{{ old('name') ? old('name') : $picture->name }}">
-            <small class="form-text text-danger">
-                <ul>
-                    @foreach($errors->get('name') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </small>
+
+            @include("includes/input", [
+    'fieldId' => 'pict-name', 'labelText' => 'Name',
+    'placeHolderText' => 'Input name', 'fieldValue' => $picture->name
+])
         </div>
         <div class="form-group">
             <label for="pict-author">Author</label>
-            <input type="text" class="form-control" name="author" id="pict-author" placeholder="Input author of picture" value="{{ old('author') ? old('author') :$picture->author }}">
-            <small class="form-text text-danger">
-                <ul>
-                    @foreach($errors->get('author') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </small>
+
+            <select class="browser-default custom-select" name="pict-author"
+                    id="pict-author">
+                <option selected disabled value="0">Choose author</option>
+                @foreach($authors as $author)
+                    <option @if($picture->author == $author->id) selected @endif
+                    value="{{ $author->id }}">{{ $author->author }}</option>
+                @endforeach
+
+            </select>
+
+            @include('includes/validationErr', ['errFieldName' => "pict-author"])
         </div>
+
         <button type="submit" class="btn btn-primary float-right">Edit</button>
 
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
@@ -79,7 +77,7 @@
             $("#delete-picture").click(function () {
                 var id - {!! $picture->id !!} ;
                 $.ajax({
-                    url: '/pictures/' + id,
+                    url: '/author/{{ $author_filter_id }}/pictures/' + id,
                     type: 'post',
                     data: {
                         _method: 'delete',
@@ -87,7 +85,7 @@
                     },
 
                     success:function (msg) {
-                        location.href="/pictures";
+                        location.href="/author/{{ $author_filter_id }}/pictures";
                     }
                 });
             });

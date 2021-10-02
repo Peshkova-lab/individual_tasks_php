@@ -18,4 +18,12 @@ class Author extends Model
             'id'
         );
     }
+
+    public function pictures(){
+        return $this->hasMany(
+            Picture::class,
+            'author_id',
+            'id'
+        );
+    }
 }

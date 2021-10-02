@@ -15,7 +15,7 @@
             <h3 class="masthead-brand">@yield("app-title")</h3>
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link" href="/">Home</a>
-                <a class = "nav-link" href="/pictures">Pictures</a>
+                <a class = "nav-link" href="/author/0/pictures">Pictures</a>
                 <a class="nav-link" href="/authors">Authors</a>
                 <a class="nav-link" href="/about">About</a>
             </nav>
