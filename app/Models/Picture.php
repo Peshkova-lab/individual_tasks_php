@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Picture extends Model
 {
     protected $fillable = [
-        'number', 'name', 'author',
+        'number', 'name', 'author', 'author_id'
     ];
+
+    public function authorF() {
+        return $this->belongsTo(
+            Author::class,
+            'author_id',
+            'id'
+        );
+    }
 }

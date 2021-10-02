@@ -20,6 +20,23 @@ class AuthorController extends Controller
         ]);
     }
 
+    private function validateData($data) {
+        return $this->validate($data, [
+            'author' => 'required|min:3|max:100',
+            'nationality'=>'required|min:3|max:30',
+            'picture_id'=>'required|exists:pictures,id'
+        ], [
+            'author.required' => 'Input this field!',
+            'author.min' => 'This field can not be less then 3 symbols!',
+            'author.max' => 'This field can not be more then 100 symbols!',
+            'nationality.required' => 'Input this field!',
+            'nationality.min' => 'This field can not be less then 3 symbols!',
+            'nationality.max' => 'This field can not be more then 30 symbols!',
+            'picture_id.required' => "Choose picture!",
+            'picture_id.exists' => 'Incorrect chosen!'
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,23 +58,7 @@ class AuthorController extends Controller
 
     public function store(Request $request)
     {
-
-
-        $data = request()->validate([
-            'author' => 'required|min:3|max:100',
-            'nationality'=>'required|min:3|max:30',
-            'picture_id'=>'required|exists:pictures,id'
-        ], [
-            'author.required' => 'Input this field!',
-            'author.min' => 'This field can not be less then 3 symbols!',
-            'author.max' => 'This field can not be more then 100 symbols!',
-            'nationality.required' => 'Input this field!',
-            'nationality.min' => 'This field can not be less then 3 symbols!',
-            'nationality.max' => 'This field can not be more then 30 symbols!',
-            'picture_id.required' => "Choose picture!",
-            'picture_id.exists' => 'Incorrect chosen!'
-        ]);
-
+        $data = $this->validateData($request);
         \App\Models\Author::create($data);
         return redirect('/authors');
     }
@@ -83,7 +84,10 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        return view('authors/edit', [
+            'author' => $author,
+            'pictures'=> Picture::all()->sortBy('name')
+        ]);
     }
 
     /**
@@ -95,7 +99,17 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $data = $this->validateData(\request());
+
+        $author->author = $data['author'];
+        $author->nationality = $data['nationality'];
+
+        $picture = Picture::find($data['picture_id']);
+        $author->picture()->associate($picture);
+
+        $author->save();
+
+        return redirect('/authors');
     }
 
     /**
@@ -106,6 +120,6 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
     }
 }

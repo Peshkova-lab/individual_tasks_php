@@ -9,7 +9,7 @@
 
         {{ method_field("patch") }}
         <div class="form-group">
-            <label for="pict-numb">Number</label>
+            <label for="pict-numb">Year</label>
             <input type="text" class="form-control" name="number" id="pict-numb" placeholder="Input number of picture" value="{{ old('number') ? old('number') : $picture->number }}">
             <small class="form-text text-danger">
                 <ul>

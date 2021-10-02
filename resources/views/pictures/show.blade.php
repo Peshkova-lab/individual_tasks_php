@@ -11,8 +11,8 @@
 @section("page-content")
 
     <h2>Picture {{ $picture->name }}</h2>
-    <h3>Author {{ $picture->author }}</h3>
-    <h5>Number {{ $picture->number }}</h5>
+    <h3>Author {{ $picture->authorF->author }}</h3>
+    <h5>Year {{ $picture->number }}</h5>
 
     <a href="/pictures" style="margin-top: 30px;"
        class="btn btn-outline-info">Return to list</a>
