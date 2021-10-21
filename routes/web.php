@@ -23,3 +23,4 @@ Route::get('pictures/author/{id}', "App\Http\Controllers\PictureController@index
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin', "App\Http\Controllers\PagesController@admin")->middleware('auth');

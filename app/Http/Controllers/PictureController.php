@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PictureController extends Controller
 {
     private $author;
     public function __construct(Request $request)
     {
-        $this->middleware('auth');
+       $this->middleware('auth');
 
         $this->author=\App\Models\Author::find($request->route('authid'));
 
@@ -40,13 +42,18 @@ class PictureController extends Controller
         }
 
         public function create($auth) {
-        return view('pictures/create', [
+            if (Auth::user() && Auth::user()->can('add', Picture::class)) {
+            return view('pictures/create', [
             'authors' => \App\Models\Author::all()->sortBy('id')
-        ]);
+        ]); } 
+        else {
+            return redirect('author/'.$auth.'/pictures'); }
+        
         }
 
         public function store($auth){
 
+         if (Auth::user() && Auth::user()->can('update', Picture::class)) {
         $data = $this->validateData(request());
 
         \App\Models\Picture::create([
@@ -56,19 +63,24 @@ class PictureController extends Controller
             'author' =>$data['pict-author'],
         ]);
 
-        return redirect('author/'.$auth.'/pictures');
+        return redirect('author/'.$auth.'/pictures'); }
         }
 
         public function edit($auth, \App\Models\Picture $picture) {
-
+        if (Auth::user() && Auth::user()->can('update', Picture::class)) {
         return view('pictures/edit', [
             'picture' => $picture,
             'authors' => \App\Models\Author::all()->sortBy('id')
-        ]);
+        ]); 
+    } else {
+            return redirect('author/'.$auth.'/pictures');
+            }
         }
 
         public function update($auth, \App\Models\Picture $picture) {
-        $data = $this->validateData(\request());
+
+        if (Auth::user() && Auth::user()->can('update', Picture::class)) {
+            $data = $this->validateData(\request());
 
         $picture->number = $data['pict-numb'];
 
@@ -78,7 +90,10 @@ class PictureController extends Controller
 
         $picture->save();
 
-        return redirect('author/'.$auth.'/pictures');
+        return redirect('author/'.$auth.'/pictures'); 
+    } else {
+            return redirect('author/'.$auth.'/pictures');
+            }
         }
 
         private function validateData($data) {
@@ -99,17 +114,25 @@ class PictureController extends Controller
         }
 
         public function destroy($auth, \App\Models\Picture $picture) {
-        $picture->delete();
+            if (Auth::user() && Auth::user()->can('delete', Picture::class)) {
+            $picture->delete();
+            }
         }
 
         public function show($auth, \App\Models\Picture $picture) {
-
+            if (Auth::user() && Auth::user()->can('view', Picture::class)) {
         if (is_null($picture)) {
             return "Picture does not exist!";
         }
 
         return view('pictures/show', [
             'picture' => $picture
-        ]);
+        ]); }
+        else {
+            if (is_null($picture)) {
+                return "Picture does not exist!";
+            }
+            return redirect('author/'.$auth.'/pictures');
+            }
         }
 }

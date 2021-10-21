@@ -13,4 +13,12 @@ class PagesController extends Controller
     public function about() {
         return view ( "about");
     }
+
+    public function admin() {
+        if (Gate::allows('admin-panel')) {
+        return view("admin");
+        } else {
+        return view("home");
+        }
+    }
 }

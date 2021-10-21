@@ -49,7 +49,10 @@
                 <a class="nav-link" href="/">Home</a>
                 <a class = "nav-link" href="/author/0/pictures">Pictures</a>
                 <a class="nav-link" href="/authors">Authors</a>
-                <a class="nav-link" href="/about">About</a>
+                @can('admin-panel')
+                <a class="nav-link" href="/admin">Admin panel</a>
+                @endcan
+                <a class="nav-link" href="/about">About  _ </a>
             </nav>
         </div>
     </header>

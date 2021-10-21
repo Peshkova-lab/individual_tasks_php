@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthorController extends Controller
 {
@@ -47,9 +48,13 @@ class AuthorController extends Controller
      */
     public function create()
     {
+        if (Auth::user() && Auth::user()->can('add', Author::class)) {
         return view('authors/create', [
             'pictures'=>Picture::all()->sortBy('number')
-        ]);
+        ]);}
+        else {
+            return redirect('/authors');
+        }
     }
 
     /**
@@ -61,9 +66,11 @@ class AuthorController extends Controller
 
     public function store(Request $request)
     {
+        if (Auth::user() && Auth::user()->can('update', Author::class)) {
         $data = $this->validateData($request);
         \App\Models\Author::create($data);
         return redirect('/authors');
+        }
     }
 
     /**
@@ -74,9 +81,13 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
+        if (Auth::user() && Auth::user()->can('view', Author::class)) {
         return view('authors/show', [
             'author'=>$author
-    ]);
+    ]); }
+    else {
+        return redirect('authors/');
+    }
     }
 
     /**
@@ -87,10 +98,14 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
+        if (Auth::user() && Auth::user()->can('update', Author::class)) {
         return view('authors/edit', [
             'author' => $author,
             'pictures'=> $author->pictures->sortBy('name')
         ]);
+        } else {
+            return redirect('authors/');
+        }
     }
 
     /**
@@ -102,6 +117,7 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
+        if (Auth::user() && Auth::user()->can('update', Author::class)) {
         $data = $this->validateData(\request());
 
         $author->author = $data['author'];
@@ -112,7 +128,10 @@ class AuthorController extends Controller
 
         $author->save();
 
-        return redirect('/authors');
+        return redirect('/authors'); }
+        else {
+            return redirect('authors/');
+        }
     }
 
     /**
@@ -123,6 +142,8 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
+        if (Auth::user() && Auth::user()->can('delete', Author::class)) {
         $author->delete();
+        }
     }
 }
