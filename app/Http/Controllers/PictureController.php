@@ -10,6 +10,8 @@ class PictureController extends Controller
     private $author;
     public function __construct(Request $request)
     {
+        $this->middleware('auth');
+
         $this->author=\App\Models\Author::find($request->route('authid'));
 
         view()->share(

@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', "App\Http\Controllers\PagesController@home");
-Route::get('/about', "App\Http\Controllers\PagesController@about");
+Route::get('/about', "App\Http\Controllers\PagesController@about")->middleware('pageNotAllowed');
 
 Route::resource('author/{authid}/pictures', "App\Http\Controllers\PictureController");
 Route::resource('authors', "App\Http\Controllers\AuthorController");
 
 Route::get('pictures/author/{id}', "App\Http\Controllers\PictureController@index");
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

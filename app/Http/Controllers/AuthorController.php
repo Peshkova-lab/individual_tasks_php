@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
+    public function __construct(Request $request) {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
